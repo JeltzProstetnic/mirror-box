@@ -57,8 +57,8 @@ Sensory Input
 
 ```bash
 # Clone
-git clone <private-url> aIware.implementation
-cd aIware.implementation
+git clone https://github.com/JeltzProstetnic/mirror-box.git
+cd mirror-box
 
 # Create venv
 python3 -m venv .venv

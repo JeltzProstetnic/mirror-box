@@ -4,16 +4,17 @@
 **Developer**: 1 (strong Python, learning ML)
 **Hardware**: RTX 4090 24GB, i9-14900KF, 64GB DDR5
 **Stack**: Python 3.11+, PyTorch 2.x, HuggingFace, pytest
-**Git**: Private repo only (`git push private main:implementation`)
+**Git**: Public repo (`git push origin main`)
 
 ---
 
 ## Package Structure
 
 ```
-aIware.implementation/
-  src/
-    mirror_box/
+mirror-box/
+  packages/
+    mirror_box/src/
+      mirror_box/
       __init__.py
       config.py              # Pydantic settings, state profiles, hyperparameters
       models/

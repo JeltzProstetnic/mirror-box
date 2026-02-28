@@ -2,7 +2,7 @@
 
 **Source**: Four-Model Theory of Consciousness (Gruber, 2015, 2026) + FMT Formalization Roadmap (Gruber, 2026b)
 **Purpose**: Distilled specification for an AI engineering team implementing artificial consciousness based on FMT.
-**Audience**: Claude Code instance or engineer in `aIware.implementation/`
+**Audience**: Claude Code instance or engineer in `mirror-box/` or `crucible/`
 
 ---
 
