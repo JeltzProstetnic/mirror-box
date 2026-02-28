@@ -1,0 +1,71 @@
+# mirror_box — Design 16 "The Mirror Box" pseudo-AC implementation
+#
+# Depends on the aiware base library (installed from local path).
+#
+# Install: pip install -e .
+# With CUDA: pip install -e ".[cuda]"
+# With dashboard: pip install -e ".[dashboard]"
+# Everything: pip install -e ".[cuda,dashboard,dev]"
+
+[project]
+name = "mirror-box"
+version = "0.1.0"
+description = "Design 16: discrete four-model self-reflecting system with approximated criticality"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Matthias Gruber" }]
+
+dependencies = [
+    # Base library — installed from monorepo sibling
+    "aiware>=0.1.0",
+
+    # Core ML (same pins as aiware for consistency)
+    "torch>=2.2.0,<3",
+    "numpy>=1.26.0,<2.1",
+
+    # HuggingFace ecosystem
+    "transformers>=4.38.0,<5",
+    "accelerate>=0.27.0,<1",
+    "peft>=0.9.0,<1",
+    "bitsandbytes>=0.42.0,<1",
+    "auto-gptq>=0.7.0,<1",
+    "safetensors>=0.4.0,<1",
+
+    # Config (inherited via aiware, pinned here for explicitness)
+    "pydantic>=2.6.0,<3",
+    "pydantic-settings>=2.1.0,<3",
+    "pyyaml>=6.0.1,<7",
+
+    # Telemetry
+    "structlog>=24.1.0,<25",
+    "wandb>=0.16.0,<1",
+]
+
+[project.optional-dependencies]
+cuda = [
+    "pynvml>=11.5.0,<12",
+]
+dashboard = [
+    "gradio>=4.19.0,<5",
+    "plotly>=5.18.0,<6",
+]
+dev = [
+    "pytest>=8.0,<9",
+    "pytest-cov>=5.0,<6",
+    "pytest-asyncio>=0.23,<1",
+    "pytest-timeout>=2.2,<3",
+    "hypothesis>=6.98,<7",
+    "ruff>=0.3,<1",
+    "mypy>=1.8,<2",
+]
+
+[project.scripts]
+mirror-box-demo = "mirror_box.scripts.run_demo:main"
+mirror-box-bench = "mirror_box.scripts.benchmark:main"
+
+[build-system]
+requires = ["setuptools>=69.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

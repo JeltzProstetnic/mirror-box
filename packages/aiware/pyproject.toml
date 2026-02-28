@@ -1,0 +1,58 @@
+# aiware — Shared base library for Artificial Consciousness implementations
+#
+# Install: pip install -e .
+# With CUDA: pip install -e ".[cuda]"
+# With dashboard: pip install -e ".[dashboard]"
+# Everything: pip install -e ".[cuda,dashboard,dev]"
+
+[project]
+name = "aiware"
+version = "0.1.0"
+description = "Shared base library: interfaces, metrics, telemetry, config, dashboard for AC research"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Matthias Gruber" }]
+
+dependencies = [
+    # Core ML
+    "torch>=2.2.0,<3",
+    "numpy>=1.26.0,<2.1",
+
+    # Config
+    "pydantic>=2.6.0,<3",
+    "pydantic-settings>=2.1.0,<3",
+    "pyyaml>=6.0.1,<7",
+
+    # Telemetry / logging
+    "structlog>=24.1.0,<25",
+
+    # Experiment tracking (optional at import, required at runtime)
+    "wandb>=0.16.0,<1",
+]
+
+[project.optional-dependencies]
+cuda = [
+    # CUDA-specific torch is installed via --index-url, not here.
+    # This extra installs GPU telemetry dependencies only.
+    "pynvml>=11.5.0,<12",
+]
+dashboard = [
+    "gradio>=4.19.0,<5",
+    "plotly>=5.18.0,<6",
+]
+dev = [
+    "pytest>=8.0,<9",
+    "pytest-cov>=5.0,<6",
+    "pytest-asyncio>=0.23,<1",
+    "pytest-timeout>=2.2,<3",
+    "hypothesis>=6.98,<7",
+    "ruff>=0.3,<1",
+    "mypy>=1.8,<2",
+]
+
+[build-system]
+requires = ["setuptools>=69.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

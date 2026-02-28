@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+.venv/
+venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Serena (local)
+.serena/
+
+# Model artifacts / large files
+*.bin
+*.safetensors
+*.gguf
+# Top-level model cache dirs (not src/*/models/ which is code)
+/models/
+/checkpoints/
+
+# W&B
+wandb/
+
+# Environment
+.env
+*.Zone.Identifier

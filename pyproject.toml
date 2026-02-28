@@ -1,0 +1,88 @@
+# Mirror Box — Design 16 "The Mirror Box" pseudo-AC system
+# Root pyproject.toml: workspace coordinator for monorepo packages.
+#
+# Usage:
+#   pip install -e packages/aiware        # base library
+#   pip install -e packages/mirror_box    # Design 16 implementation
+#   pip install -e ".[dev]"               # dev tools only (no package install)
+
+[project]
+name = "mirror-box-workspace"
+version = "0.1.0"
+description = "Design 16: discrete four-model self-reflecting system with approximated criticality"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Matthias Gruber" }]
+
+# Root has no runtime dependencies — each package declares its own.
+# Dev dependencies live here so a single `pip install -e ".[dev]"` gets them.
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0,<9",
+    "pytest-cov>=5.0,<6",
+    "pytest-asyncio>=0.23,<1",
+    "pytest-timeout>=2.2,<3",
+    "hypothesis>=6.98,<7",
+    "ruff>=0.3,<1",
+    "mypy>=1.8,<2",
+    "pre-commit>=3.6,<4",
+]
+
+[build-system]
+requires = ["setuptools>=69.0"]
+build-backend = "setuptools.build_meta"
+
+# Root package has no Python source — it only hosts dev deps and tool config.
+[tool.setuptools]
+py-modules = []
+
+[tool.pytest.ini_options]
+testpaths = [
+    "packages/aiware/tests",
+    "packages/mirror_box/tests",
+]
+markers = [
+    "gpu: requires CUDA GPU (deselect with -m 'not gpu')",
+    "slow: long-running tests (deselect with -m 'not slow')",
+    "integration: end-to-end integration tests",
+]
+asyncio_mode = "auto"
+addopts = "--strict-markers -ra --import-mode=importlib"
+
+[tool.coverage.run]
+source = [
+    "packages/aiware/src",
+    "packages/mirror_box/src",
+]
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "@abstractmethod",
+    "raise NotImplementedError",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 99
+src = [
+    "packages/aiware/src",
+    "packages/mirror_box/src",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "SIM", "TCH"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unused_configs = true
+mypy_path = [
+    "packages/aiware/src",
+    "packages/mirror_box/src",
+]

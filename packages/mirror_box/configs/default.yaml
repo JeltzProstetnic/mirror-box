@@ -1,0 +1,93 @@
+# Mirror Box — Default Configuration
+#
+# All values can be overridden via environment variables with prefix MIRROR_BOX_
+# or by passing a different YAML file at startup.
+
+# -- LLM Backend --
+llm:
+  model_id: "TheBloke/Mistral-7B-Instruct-v0.3-GPTQ"
+  quantization: "gptq"          # gptq | nf4 | none
+  encoder_layer_index: 8        # Which LLM layer to extract hidden states from (0-indexed)
+  max_context_tokens: 2048
+  generation_max_tokens: 256
+  temperature: 0.7
+
+# -- LoRA (ISM adapter) --
+lora:
+  rank: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules: ["q_proj", "v_proj"]
+  learning_rate: 0.0001
+  replay_batch_size: 8
+  replay_buffer_size: 1000
+
+# -- Architecture --
+state_dim: 512
+conscious_rate_hz: 20.0
+
+# -- Self-predictor MLP --
+self_predictor:
+  hidden_dims: [1024, 512]    # Input: 2*state_dim -> hidden[0] -> hidden[1] -> state_dim
+  learning_rate: 0.001
+  activation: "relu"
+
+# -- Hardware --
+hardware:
+  device: "auto"
+  dtype: "float32"
+
+# -- State profiles --
+state_profiles:
+  wake:
+    alpha_world: 1.0
+    alpha_self: 1.0
+    beta: 0.0
+    noise_std: 0.1
+    external_input: true
+    self_ref_loop: true
+    substrate_rate_hz: 40.0
+  sleep:
+    alpha_world: 0.1
+    alpha_self: 0.1
+    beta: -3.0
+    noise_std: 0.01
+    external_input: false
+    self_ref_loop: false
+    substrate_rate_hz: 10.0
+  dream:
+    alpha_world: 0.0
+    alpha_self: 0.3
+    beta: -0.5
+    noise_std: 0.5
+    external_input: false
+    self_ref_loop: true
+    substrate_rate_hz: 20.0
+  altered:
+    alpha_world: 0.5
+    alpha_self: 0.5
+    beta: 2.0
+    noise_std: 1.0
+    external_input: true
+    self_ref_loop: true
+    substrate_rate_hz: 40.0
+
+# -- State machine --
+state_machine:
+  wake_duration_frames: 1200    # 60 seconds at 20 Hz before auto-sleep
+  sleep_duration_seconds: 30.0
+  dream_duration_seconds: 15.0
+
+# -- Substrate dynamics --
+substrate:
+  homeostatic_target_var: 1.0   # Target variance for activation scaling
+  homeostatic_rate: 0.01        # How fast scaling adapts
+
+# -- Metrics --
+metrics_buffer_size: 10000
+C_threshold: 0.01
+
+# -- Experiment tracking --
+wandb_project: "mirror-box"
+wandb_enabled: false
+wandb_run_name: null            # Auto-generated if null
