@@ -12,28 +12,28 @@ Based on [Gruber's Four-Model Theory of consciousness](https://matthiasgruber.co
 
 ```
 Sensory Input
-     |
-     v
-+------------------+     +-------------------+
-| ImplicitModels   |     | SigmoidGate       |
-| IWM (frozen enc) |---->| alpha/beta/noise   |
-| ISM (LoRA enc)   |---->| per state profile  |
-+------------------+     +-------------------+
-                               |
-                               v
-                    +-------------------+
-                    | ExplicitModels    |
-                    | EWM (MLP)         |
-                    | ESM (MLP + prev)  |<--+
-                    +-------------------+   |
-                         |                  |
-                         +--[self-ref]------+
-                         |
-                         v
-                    +-------------------+
-                    | MLPSelfPredictor  |
-                    | R metric (0..1)   |
-                    +-------------------+
+     │
+     ▼
+┌──────────────────┐     ┌───────────────────┐
+│ ImplicitModels   │     │ SigmoidGate       │
+│ IWM (frozen enc) │────▶│ alpha/beta/noise   │
+│ ISM (LoRA enc)   │────▶│ per state profile  │
+└──────────────────┘     └───────────────────┘
+                               │
+                               ▼
+                    ┌───────────────────┐
+                    │ ExplicitModels    │
+                    │ EWM (MLP)         │
+                    │ ESM (MLP + prev)  │◀──┐
+                    └───────────────────┘   │
+                         │                  │
+                         └──[self-ref]──────┘
+                         │
+                         ▼
+                    ┌───────────────────┐
+                    │ MLPSelfPredictor  │
+                    │ R metric (0..1)   │
+                    └───────────────────┘
 ```
 
 **Four Models:**
