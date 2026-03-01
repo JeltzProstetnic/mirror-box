@@ -4,8 +4,9 @@
 #
 # Install: pip install -e .
 # With CUDA: pip install -e ".[cuda]"
-# With dashboard: pip install -e ".[dashboard]"
-# Everything: pip install -e ".[cuda,dashboard,dev]"
+# With web UI: pip install -e ".[web]"
+# With Gradio dashboard: pip install -e ".[dashboard]"
+# Everything: pip install -e ".[cuda,web,dashboard,dev]"
 
 [project]
 name = "mirror-box"
@@ -45,6 +46,10 @@ dependencies = [
 cuda = [
     "pynvml>=11.5.0,<12",
 ]
+web = [
+    "fastapi>=0.110.0,<1",
+    "uvicorn[standard]>=0.27.0,<1",
+]
 dashboard = [
     "gradio>=4.19.0,<5",
     "plotly>=5.18.0,<6",
@@ -61,6 +66,7 @@ dev = [
 
 [project.scripts]
 mirror-box-demo = "mirror_box.scripts.run_demo:main"
+mirror-box-web = "mirror_box.scripts.web_chat:main"
 mirror-box-bench = "mirror_box.scripts.benchmark:main"
 
 [build-system]

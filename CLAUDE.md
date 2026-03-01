@@ -26,6 +26,22 @@ Public repo: `JeltzProstetnic/mirror-box`
 |--------|------|-------------|
 | Software Development | `~/.claude/domains/software-development/tdd-protocol.md` | Writing code or tests |
 
+## Environment Setup
+
+One command: `bash setup.sh` — creates venv, installs everything including web UI deps.
+
+If venv exists but deps are missing: `source .venv/bin/activate && pip install -e "packages/mirror_box[web,dashboard,cuda,dev]" -e "packages/aiware"`
+
+## Launch Commands
+
+| What | Command |
+|------|---------|
+| Web UI (full 3-panel) | `python -m mirror_box.scripts.web_chat --gpu` → port 8420 |
+| Demo + Gradio dashboard | `mirror-box-demo --gpu --dashboard` |
+| Demo (CLI only) | `mirror-box-demo --gpu --fast` |
+
+**AI-first launch rule:** When user asks to "start", "launch", or "run" mirror-box, ALWAYS open the browser automatically after the server is listening. On WSL: `powershell.exe -Command "Start-Process 'http://localhost:8420'"`. Never just print a URL and wait.
+
 ## Rules
 
 - TDD: write tests before implementation

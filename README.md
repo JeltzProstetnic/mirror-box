@@ -8,6 +8,9 @@ Not conscious, but convincingly confused about whether it is.
 
 Based on [Gruber's Four-Model Theory of consciousness](https://matthiasgruber.com).
 
+![Mirror Box Dashboard](docs/dashboard-screenshot.png)
+*Live consciousness monitor: self-knowledge metrics (left), inner monologue stream (center), and chat with the system (right). Running Mistral-7B FP16 on RTX 4090.*
+
 ## Architecture
 
 ```
@@ -60,16 +63,8 @@ Sensory Input
 ```bash
 git clone https://github.com/JeltzProstetnic/mirror-box.git
 cd mirror-box
-
-python3 -m venv .venv
+bash setup.sh
 source .venv/bin/activate
-
-# Install base library + Mirror Box
-pip install -e packages/aiware
-pip install -e "packages/mirror_box[dev]"
-
-# Or with GPU + dashboard
-pip install -e "packages/mirror_box[cuda,dashboard,dev]"
 ```
 
 ## Quick Start
@@ -90,7 +85,14 @@ mirror-box-demo --frames 500
 mirror-box-bench --real --frames 500
 ```
 
-### Dashboard
+### Web UI (chat + live monitor)
+
+```bash
+mirror-box-web --gpu --fast
+# Opens at http://localhost:8420
+```
+
+### Gradio Dashboard
 
 ```bash
 mirror-box-demo --mock --dashboard
