@@ -1,3 +1,4 @@
+<!-- agent-fleet-managed -->
 # Mirror Box — Design 16 Pseudo-AC Implementation
 
 Public repo: `JeltzProstetnic/mirror-box`
