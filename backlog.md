@@ -13,4 +13,8 @@ Convention: `~/.claude/reference/backlog-convention.md`.
 
 - [ ] [P3] `MIR-2` **Replace ASCII architecture diagram in README.md with Mermaid.** Replace ASCII architecture diagram in README.md with Mermaid.
 
+### Inbox intake 2026-11-25 — delivered by cfg-agent-fleet
+
+- [ ] [P2] `MIR-3` **Fix the FMT defects in the copied crucible spec — or replace the copy with a pointer.** (from aIware S342, AIW-303) `papers/fmt-implementation-spec.md` is an identical copy of the crucible spec (same ~450 lines, differs only in whitespace), which carries claim-changing FMT defects — criticality treated as a condition, explicit = phenomenal without the loop, and others. Every crucible hit applies here at the same line numbers; `docs/design-spec.md:535` is also affected. Hits and replacement text: `~/aIware/docs/reviews/2026-10-19-crosscheck-outside-hits.md` sections 1 and 5. Coordinate with crucible: fix both copies, or replace this copy with a pointer to crucible's.
+
 ## Done
