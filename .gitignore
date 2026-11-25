@@ -44,3 +44,7 @@ wandb/
 # Environment
 .env
 *.Zone.Identifier
+tmp/
+.claude/.session-lock
+.claude/.session-role.*
+docs/terminal-logs/
